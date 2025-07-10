@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xenora Learning - Course Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0f;
+            color: #e4e4e7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Darker animated background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(79, 70, 229, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.03) 0%, transparent 50%);
+        }
+
+        /* Subtle floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .particle.small {
+            width: 2px;
+            height: 2px;
+            background: rgba(139, 92, 246, 0.4);
+        }
+
+        .particle.medium {
+            width: 4px;
+            height: 4px;
+            background: rgba(79, 70, 229, 0.3);
+            animation-duration: 16s;
+            animation-delay: -4s;
+        }
+
+        .particle.large {
+            width: 6px;
+            height: 6px;
+            background: rgba(59, 130, 246, 0.2);
+            animation-duration: 20s;
+            animation-delay: -8s;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px); 
+                opacity: 0; 
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            25% { transform: translateY(-30px) translateX(15px); }
+            50% { transform: translateY(-60px) translateX(-8px); }
+            75% { transform: translateY(-90px) translateX(20px); }
+        }
+
+        /* Container and layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Professional Header */
+        header {
+            padding: 16px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #8b5cf6;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        } .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #8b5cf6;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo:hover {
+            transform: translateZ(10px) rotateY(5deg);
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .logo img {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(1.1);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover img {
+            filter: brightness(1.3) drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #8b5cf6;
+            transition: width 0.2s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #8b5cf6;
+        }
+
+        /* Course Hero Section */
+        .course-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-top: 120px;
+            padding-bottom: 80px;
+        }
+
+        .course-hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .course-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+        }
+
+        .course-hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            color: #9ca3af;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* Course Overview Cards */
+        .course-overview {
+            padding: 80px 0;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 64px;
+        }
+
+        .overview-card {
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+        }
+
+        .overview-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .overview-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #8b5cf6;
+        }
+
+        .overview-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            color: #f9fafb;
+            font-weight: 600;
+        }
+
+        .overview-card p {
+            color: #d1d5db;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .overview-card ul {
+            list-style: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .overview-card li {
+            padding: 6px 0;
+            color: #d1d5db;
+            position: relative;
+            padding-left: 20px;
+            font-size: 14px;
+        }
+
+        .overview-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #8b5cf6;
+            font-weight: bold;
+        }
+
+        /* Detailed Phase Sections */
+        .phase-section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .phase-section:nth-child(even) {
+            background: rgba(17, 24, 39, 0.2);
+        }
+
+        .phase-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .phase-number {
+            font-size: 14px;
+            color: #8b5cf6;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .phase-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .phase-description {
+            font-size: 1.125rem;
+            color: #9ca3af;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .learning-objectives {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .objective-card {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .objective-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(139, 92, 246, 0.3);
+            background: rgba(17, 24, 39, 0.8);
+        }
+
+        .objective-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .objective-card h4 {
+            font-size: 1.125rem;
+            margin-bottom: 8px;
+            color: #f9fafb;
+            font-weight: 600;
+        }
+
+        .objective-card p {
+            color: #d1d5db;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        /* Course Features */
+        .course-features {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 64px;
+        }
+
+        .feature-item {
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: #8b5cf6;
+            margin-bottom: 16px;
+        }
+
+        .feature-item h4 {
+            font-size: 1.125rem;
+            margin-bottom: 12px;
+            color: #f9fafb;
+            font-weight: 600;
+        }
+
+        .feature-item p {
+            color: #d1d5db;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+            background: rgba(17, 24, 39, 0.3);
+        }
+
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .cta-description {
+            font-size: 1.125rem;
+            color: #9ca3af;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            margin: 0 8px;
+        }
+
+        .btn-primary {
+            background: #8b5cf6;
+            color: white;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #d1d5db;
+            border: 1px solid #374151;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:hover {
+            background: #7c3aed;
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary:hover {
+            border-color: #8b5cf6;
+            color: #8b5cf6;
+        }
+
+        /* Section styling */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.125rem;
+            color: #9ca3af;
+            margin-bottom: 64px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(17, 24, 39, 0.9);
+            padding: 64px 0 32px;
+            text-align: center;
+            border-top: 1px solid rgba(75, 85, 99, 0.3);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #8b5cf6;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .social-icons a {
+            color: #9ca3af;
+            font-size: 1.25rem;
+            transition: all 0.2s ease;
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(75, 85, 99, 0.2);
+        }
+
+        .social-icons a:hover {
+            color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .course-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .phase-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .learning-objectives {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                display: block;
+                margin: 8px auto;
+                max-width: 200px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header>
+        <nav class="container">
+           <a href="index.html" class="logo">
+                <img src="C:\Users\dell\Desktop\Apps\XENORA\XENORA-WHITE2.png" alt="Xenora">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="#overview">Course Overview</a></li>
+                <li><a href="#phases">Phases</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Course Hero Section -->
+    <section class="course-hero">
+        <div class="container">
+            <div class="course-hero-content">
+                <h1>Xenora Learning Courses</h1>
+                <p class="course-hero-subtitle">
+                    Comprehensive 8-phase AI education program designed and taught by tech students. Learn practical AI skills through hands-on projects and peer-to-peer learning experiences.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Overview Cards -->
+<div class="overview-grid">
+    <div class="overview-card fade-in">
+        <div class="overview-icon">🤖</div>
+        <h3>Xenora AI Learning Journey</h3>
+        <p>Explore our 8-Phase AI Course designed for students . Each phase unlocks a new dimension of how AI can help in learning, creating, and growing — all through hands-on activities and real-world tools.</p>
+    </div>
+</div>
+
+<!-- Phase 1 Section -->
+<div class="phase-section">
+    <div class="container">
+        <div class="phase-header">
+            <div class="phase-number">Phase 01</div>
+            <h2 class="phase-title">Conversational AI & Smart Assistants</h2>
+            <p class="phase-description">
+                Students explore how AI understands language and responds like a human.
+            </p>
+        </div>
+        
+        <div class="learning-objectives">
+            <div class="objective-card fade-in">
+                <div class="objective-number">1</div>
+                <h4>Better Question Asking</h4>
+                <p>Learn to ask better questions and receive meaningful responses from intelligent assistants.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">2</div>
+                <h4>Study Support</h4>
+                <p>Use AI to summarize lessons, explain concepts in simple words, and help with assignments.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">3</div>
+                <h4>System Comparison</h4>
+                <p>Discover how to compare responses across different intelligent systems.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">4</div>
+                <h4>Creative Enhancement</h4>
+                <p>Experience how AI can boost creative writing, study support, and idea generation.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Phase 2 Section -->
+<div class="phase-section">
+    <div class="container">
+        <div class="phase-header">
+            <div class="phase-number">Phase 02</div>
+            <h2 class="phase-title">Boosting Productivity & Creativity with AI</h2>
+            <p class="phase-description">
+                This phase teaches students how AI can help them stay organized and become more creative.
+            </p>
+        </div>
+        
+        <div class="learning-objectives">
+            <div class="objective-card fade-in">
+                <div class="objective-number">1</div>
+                <h4>Smart Organization</h4>
+                <p>Convert messy notes into organized summaries and study plans in seconds.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">2</div>
+                <h4>Visual Design</h4>
+                <p>Design professional posters, presentations, and visuals with ease.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">3</div>
+                <h4>Video Creation</h4>
+                <p>Generate engaging videos using text and images with automatic voiceovers and captions.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">4</div>
+                <h4>Voice Narration</h4>
+                <p>Turn written content into natural-sounding voice narrations for storytelling and accessibility.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Phase 3 Section -->
+<div class="phase-section">
+    <div class="container">
+        <div class="phase-header">
+            <div class="phase-number">Phase 03</div>
+            <h2 class="phase-title">Automating Work & Smarter Digital Tasks</h2>
+            <p class="phase-description">
+                Students discover how to make daily tasks faster and more efficient using AI.
+            </p>
+        </div>
+        
+        <div class="learning-objectives">
+            <div class="objective-card fade-in">
+                <div class="objective-number">1</div>
+                <h4>Task Automation</h4>
+                <p>Create automated systems that connect apps to perform repetitive tasks.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">2</div>
+                <h4>Instant Presentations</h4>
+                <p>Instantly turn ideas or topics into ready-to-use slide presentations.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">3</div>
+                <h4>Multi-language Content</h4>
+                <p>Translate videos and add multi-language voiceovers without recording anything.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">4</div>
+                <h4>Project Management</h4>
+                <p>Organize personal projects, to-do lists, and team plans using AI-powered task management.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Phase 4 Section -->
+<div class="phase-section">
+    <div class="container">
+        <div class="phase-header">
+            <div class="phase-number">Phase 04</div>
+            <h2 class="phase-title">Multimedia & Creative Expression with AI</h2>
+            <p class="phase-description">
+                This phase unleashes the creative side of students through visual and written AI tools.
+            </p>
+        </div>
+        
+        <div class="learning-objectives">
+            <div class="objective-card fade-in">
+                <div class="objective-number">1</div>
+                <h4>Digital Art Creation</h4>
+                <p>Generate original digital art from imagination using text descriptions.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">2</div>
+                <h4>Animated Videos</h4>
+                <p>Build simple animated videos with characters, narration, and effects.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">3</div>
+                <h4>Content Writing</h4>
+                <p>Produce well-structured written content like blogs, captions, and stories using AI help.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">4</div>
+                <h4>Video Enhancement</h4>
+                <p>Apply professional video editing effects, background removal, and text-to-video transformations.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Phase 5 Section -->
+<div class="phase-section">
+    <div class="container">
+        <div class="phase-header">
+            <div class="phase-number">Phase 05</div>
+            <h2 class="phase-title">Web, Apps & Future Tech Builders</h2>
+            <p class="phase-description">
+                Students step into the world of digital creation using AI for tech innovation.
+            </p>
+        </div>
+        
+        <div class="learning-objectives">
+            <div class="objective-card fade-in">
+                <div class="objective-number">1</div>
+                <h4>Website Building</h4>
+                <p>Build full websites instantly with just a few inputs — no coding required.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">2</div>
+                <h4>Mobile App Creation</h4>
+                <p>Create simple mobile apps through visual design and drag-and-drop interfaces.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">3</div>
+                <h4>UI/UX Design</h4>
+                <p>Sketch and generate user interface designs and mockups collaboratively.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">4</div>
+                <h4>Smart Research</h4>
+                <p>Save online content, notes, and links smartly for projects and research using AI support.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Phase 6 Section -->
+<div class="phase-section">
+    <div class="container">
+        <div class="phase-header">
+            <div class="phase-number">Phase 06</div>
+            <h2 class="phase-title">Smarter Studying with AI Tools</h2>
+            <p class="phase-description">
+                AI becomes a study companion to help students learn faster and understand better.
+            </p>
+        </div>
+        
+        <div class="learning-objectives">
+            <div class="objective-card fade-in">
+                <div class="objective-number">1</div>
+                <h4>Problem Solving</h4>
+                <p>Solve complex math and science problems with step-by-step explanations.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">2</div>
+                <h4>Document Analysis</h4>
+                <p>Ask questions directly to uploaded textbooks or PDFs and get instant answers.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">3</div>
+                <h4>Research Assistant</h4>
+                <p>Research any topic and get clear, factual answers with sources.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">4</div>
+                <h4>Custom Learning</h4>
+                <p>Generate full lessons and quizzes from any topic in seconds for self-paced learning.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Phase 7 Section -->
+<div class="phase-section">
+    <div class="container">
+        <div class="phase-header">
+            <div class="phase-number">Phase 07</div>
+            <h2 class="phase-title">Career Exploration & Life Skills with AI</h2>
+            <p class="phase-description">
+                This phase prepares students for real-world challenges and future thinking.
+            </p>
+        </div>
+        
+        <div class="learning-objectives">
+            <div class="objective-card fade-in">
+                <div class="objective-number">1</div>
+                <h4>Career Discovery</h4>
+                <p>Discover career paths based on personal interests and strengths.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">2</div>
+                <h4>Emotional Intelligence</h4>
+                <p>Practice conversations with an AI friend to improve emotional awareness and expression.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">3</div>
+                <h4>Communication Skills</h4>
+                <p>Get real-time speaking feedback while practicing English or public speaking.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">4</div>
+                <h4>Prompt Engineering</h4>
+                <p>Learn how to communicate clearly with AI by crafting effective instructions and prompts.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Phase 8 Section -->
+<div class="phase-section">
+    <div class="container">
+        <div class="phase-header">
+            <div class="phase-number">Phase 08</div>
+            <h2 class="phase-title">Fun, Games & Creative AI Exploration</h2>
+            <p class="phase-description">
+                We end the course on a fun and playful note — exploring how AI can entertain and inspire.
+            </p>
+        </div>
+        
+        <div class="learning-objectives">
+            <div class="objective-card fade-in">
+                <div class="objective-number">1</div>
+                <h4>Interactive Characters</h4>
+                <p>Chat with interactive AI characters for storytelling, learning, and fun roleplay.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">2</div>
+                <h4>Adventure Games</h4>
+                <p>Play adventure games where your choices guide the story with AI narration.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">3</div>
+                <h4>Music Creation</h4>
+                <p>Turn ideas or short texts into full songs with AI-generated music and lyrics.</p>
+            </div>
+            <div class="objective-card fade-in">
+                <div class="objective-number">4</div>
+                <h4>Visual Games</h4>
+                <p>Sketch quick doodles and let AI guess what you're drawing — fast, fun, and visual!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Course Features -->
+    <section class="course-features">
+        <div class="container">
+            <h2 class="section-title fade-in">Course Features</h2>
+            <p class="section-subtitle fade-in">
+                Everything you need for a comprehensive AI learning experience guided by passionate tech students
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">🎓</div>
+                    <h4>Student-Led Instruction</h4>
+                    <p>Learn from passionate tech students who understand your learning journey and can relate to your challenges.</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">🛠️</div>
+                    <h4>Hands-On Learning</h4>
+                    <p>Gain practical experience through project-based learning across 8 specialized phases of AI education.</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">🤝</div>
+                    <h4>Peer Community</h4>
+                    <p>Join a vibrant community of young AI enthusiasts and get peer support throughout your learning journey.</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">📱</div>
+                    <h4>Flexible Learning</h4>
+                    <p>Access course materials and practice exercises on any device with self-paced learning options.</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">🏆</div>
+                    <h4>Achievement Recognition</h4>
+                    <p>Earn completion certificate and showcase your AI learning achievements.</p>
+                </div>
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">🔄</div>
+                    <h4>Evolving Content</h4>
+                    <p>Stay current with regularly updated content as AI technology and educational methods evolve.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <h2 class="cta-title">Ready to Start Your AI Learning Journey?</h2>
+                <p class="cta-description">
+                    Join hundreds of students who are already exploring AI with Xenora. Start your 8-phase transformation today and become an AI-literate creator of tomorrow.
+                </p>
+                <div>
+                    <a href="#" class="btn btn-primary">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="#overview">Course Overview</a>
+                <a href="#phases">Learning Phases</a>
+                <a href="index.html#projects">Xen Projects</a>
+            </div>
+            
+            <p style="color: #9ca3af; margin-bottom: 16px;">xenoralearning@gmail.com</p>
+            
+              <div class="social-icons">
+                <a href="https://www.instagram.com/xenora_learning?igsh=bHlneDRua2R2NTMy" aria-label="instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.linkedin.com/in/mohammed-sabeeh-pp-38bb2b34a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+            
+            <p style="margin-top: 32px; color: #ffffff; font-size: 14px;">
+                Academic Partner: SSM Polytechnic
+            </p>
+            
+            <p style="margin-top: 16px; color: #ffffff; font-size: 12px;">
+                © 2024 Xenora. A student-led educational initiative.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Particle creation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            const particleTypes = ['small', 'medium', 'large'];
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
+                particle.className = `particle ${type}`;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 12 + 's';
+                particle.style.animationDuration = (Math.random() * 8 + 12) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Intersection observer for animations
+        function setupScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Header scroll effect
+        function setupHeaderScroll() {
+            const header = document.querySelector('header');
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                
+                if (currentScrollY > 50) {
+                    header.style.background = 'rgba(10, 10, 15, 0.98)';
+                    header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+                } else {
+                    header.style.background = 'rgba(10, 10, 15, 0.95)';
+                    header.style.boxShadow = 'none';
+                }
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            setupScrollAnimations();
+            setupHeaderScroll();
+        });
+    </script>
+</body>
+</html>

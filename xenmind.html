@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XenMind - Coming Soon | Xenora</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0f;
+            color: #e4e4e7;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        /* Enhanced 3D animated background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(79, 70, 229, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 60% 70%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
+            animation: bgShift3D 25s ease-in-out infinite;
+        }
+
+        @keyframes bgShift3D {
+            0%, 100% { 
+                transform: translateX(0) translateY(0) translateZ(0) rotateX(0deg) rotateY(0deg);
+                filter: hue-rotate(0deg);
+            }
+            25% { 
+                transform: translateX(-30px) translateY(-20px) translateZ(10px) rotateX(2deg) rotateY(1deg);
+                filter: hue-rotate(15deg);
+            }
+            50% { 
+                transform: translateX(20px) translateY(30px) translateZ(-5px) rotateX(-1deg) rotateY(2deg);
+                filter: hue-rotate(30deg);
+            }
+            75% { 
+                transform: translateX(40px) translateY(-10px) translateZ(15px) rotateX(1deg) rotateY(-1deg);
+                filter: hue-rotate(45deg);
+            }
+        }
+
+        /* Enhanced 3D floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: float3D 15s ease-in-out infinite;
+        }
+
+        .particle.small {
+            width: 3px;
+            height: 3px;
+            background: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+        }
+
+        .particle.medium {
+            width: 5px;
+            height: 5px;
+            background: rgba(79, 70, 229, 0.5);
+            box-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
+            animation-duration: 18s;
+            animation-delay: -4s;
+        }
+
+        .particle.large {
+            width: 8px;
+            height: 8px;
+            background: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            animation-duration: 22s;
+            animation-delay: -8s;
+        }
+
+        .particle.glow {
+            width: 6px;
+            height: 6px;
+            background: rgba(168, 85, 247, 0.7);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
+            animation-duration: 20s;
+            animation-delay: -6s;
+        }
+
+        /* Mini stars particles */
+        .particle.mini-star {
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            animation-duration: 25s;
+            animation-delay: -10s;
+        }
+
+        .particle.twinkle-star {
+            width: 1px;
+            height: 1px;
+            background: rgba(139, 92, 246, 0.9);
+            box-shadow: 0 0 6px rgba(139, 92, 246, 0.6);
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        @keyframes float3D {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) translateZ(0px) rotateX(0deg) rotateY(0deg); 
+                opacity: 0; 
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            25% { transform: translateY(-40px) translateX(25px) translateZ(20px) rotateX(90deg) rotateY(45deg); }
+            50% { transform: translateY(-80px) translateX(-15px) translateZ(-10px) rotateX(180deg) rotateY(90deg); }
+            75% { transform: translateY(-120px) translateX(35px) translateZ(30px) rotateX(270deg) rotateY(135deg); }
+        }
+
+        /* 3D Floating geometric shapes */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatShape 20s ease-in-out infinite;
+        }
+
+        .shape.triangle {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 25px solid rgba(139, 92, 246, 0.3);
+            filter: blur(1px);
+        }
+
+        .shape.square {
+            width: 20px;
+            height: 20px;
+            background: rgba(79, 70, 229, 0.3);
+            transform: rotate(45deg);
+            filter: blur(1px);
+        }
+
+        .shape.circle {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(168, 85, 247, 0.3);
+            filter: blur(1px);
+        }
+
+        @keyframes floatShape {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) rotateZ(0deg) rotateX(0deg) rotateY(0deg); 
+            }
+            33% { 
+                transform: translateY(-60px) translateX(40px) rotateZ(120deg) rotateX(60deg) rotateY(120deg); 
+            }
+            66% { 
+                transform: translateY(-30px) translateX(-20px) rotateZ(240deg) rotateX(120deg) rotateY(240deg); 
+            }
+        }
+
+        /* Floating mini stars */
+        .floating-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .mini-star {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 8px;
+            animation: floatStar 30s ease-in-out infinite;
+        }
+
+        .mini-star.bright {
+            color: rgba(139, 92, 246, 0.8);
+            animation: floatStarBright 25s ease-in-out infinite;
+        }
+
+        @keyframes floatStar {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) rotateZ(0deg); 
+                opacity: 0.3;
+            }
+            25% { 
+                transform: translateY(-50px) translateX(30px) rotateZ(90deg); 
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-100px) translateX(-20px) rotateZ(180deg); 
+                opacity: 0.6;
+            }
+            75% { 
+                transform: translateY(-150px) translateX(40px) rotateZ(270deg); 
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes floatStarBright {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) rotateZ(0deg) scale(1); 
+                opacity: 0.4;
+            }
+            33% { 
+                transform: translateY(-60px) translateX(35px) rotateZ(120deg) scale(1.2); 
+                opacity: 1;
+            }
+            66% { 
+                transform: translateY(-120px) translateX(-25px) rotateZ(240deg) scale(0.8); 
+                opacity: 0.7;
+            }
+        }
+
+        /* Container and layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Enhanced 3D Header */
+        header {
+            padding: 16px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #8b5cf6;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo:hover {
+            transform: translateZ(10px) rotateY(5deg);
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .logo img {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(1.1);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover img {
+            filter: brightness(1.3) drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+            transform-style: preserve-3d;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #8b5cf6;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #8b5cf6;
+            transform: translateZ(5px) translateY(-2px);
+        }
+
+        /* Coming Soon Main Section */
+        .coming-soon {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 120px 0 80px;
+            transform-style: preserve-3d;
+        }
+
+        .coming-soon-content {
+            animation: fadeInUp3D 1.5s ease-out;
+            transform-style: preserve-3d;
+            max-width: 800px;
+        }
+
+        /* XenMind Icon */
+        .xenmind-icon {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 40px;
+            background: transparent;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: #8b5cf6;
+            animation: float3DLogo 8s ease-in-out infinite;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes float3DLogo {
+            0%, 100% { 
+                transform: translateY(0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg); 
+            }
+            25% { 
+                transform: translateY(-15px) rotateX(5deg) rotateY(5deg) rotateZ(2deg); 
+            }
+            50% { 
+                transform: translateY(-10px) rotateX(-3deg) rotateY(8deg) rotateZ(-1deg); 
+            }
+            75% { 
+                transform: translateY(-18px) rotateX(7deg) rotateY(-5deg) rotateZ(3deg); 
+            }
+        }
+
+        .coming-soon h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #8b5cf6, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+            transform: translateZ(20px);
+            animation: titleFloat3D 6s ease-in-out infinite;
+        }
+
+        @keyframes titleFloat3D {
+            0%, 100% { transform: translateZ(20px) rotateX(0deg) rotateY(0deg); }
+            50% { transform: translateZ(25px) rotateX(2deg) rotateY(1deg); }
+        }
+
+        .coming-soon-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #9ca3af;
+            line-height: 1.6;
+            transform: translateZ(15px);
+            animation: subtitleFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes subtitleFloat {
+            0%, 100% { transform: translateZ(15px) rotateX(0deg); }
+            50% { transform: translateZ(18px) rotateX(1deg); }
+        }
+
+        .coming-soon-description {
+            font-size: 1.125rem;
+            margin-bottom: 50px;
+            color: #d1d5db;
+            line-height: 1.7;
+            transform: translateZ(10px);
+        }
+
+        /* Coming Soon Badge */
+        .coming-soon-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            animation: pulse 2s ease-in-out infinite;
+            transform: translateZ(12px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                transform: translateZ(12px) scale(1); 
+                box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+            }
+            50% { 
+                transform: translateZ(15px) scale(1.05); 
+                box-shadow: 0 15px 40px rgba(139, 92, 246, 0.5);
+            }
+        }
+
+        /* Notification Form */
+        .notify-form {
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            margin: 60px auto 0;
+            max-width: 500px;
+            transform-style: preserve-3d;
+            transition: all 0.4s ease;
+        }
+
+        .notify-form:hover {
+            transform: translateZ(10px);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .notify-form h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: #f9fafb;
+            font-weight: 600;
+        }
+
+        .notify-form p {
+            color: #9ca3af;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid rgba(75, 85, 99, 0.5);
+            border-radius: 8px;
+            background: rgba(17, 24, 39, 0.6);
+            color: #e4e4e7;
+            font-size: 16px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .notify-btn {
+            width: 100%;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: white;
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+            transform-style: preserve-3d;
+        }
+
+        .notify-btn:hover {
+            transform: translateY(-2px) translateZ(5px);
+            background: linear-gradient(135deg, #7c3aed, #9333ea);
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.6);
+        }
+
+        /* Back to Home Button */
+        .back-home {
+            margin-top: 40px;
+        }
+
+        .btn-secondary {
+            padding: 12px 24px;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            background: rgba(17, 24, 39, 0.8);
+            color: #d1d5db;
+            backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px) translateZ(5px);
+            border-color: #8b5cf6;
+            color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        /* Enhanced animations */
+        @keyframes fadeInUp3D {
+            from {
+                opacity: 0;
+                transform: translateY(50px) translateZ(-20px) rotateX(-15deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) translateZ(0) rotateX(0deg);
+            }
+        }
+
+        /* Enhanced Footer */
+        footer {
+            background: rgba(17, 24, 39, 0.95);
+            padding: 40px 0 20px;
+            text-align: center;
+            border-top: 1px solid rgba(75, 85, 99, 0.3);
+            transform-style: preserve-3d;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+            transform-style: preserve-3d;
+        }
+
+        .footer-links a:hover {
+            color: #8b5cf6;
+            transform: translateZ(5px) translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .coming-soon h1 {
+                font-size: 2.5rem;
+            }
+            
+            .coming-soon-subtitle {
+                font-size: 1.25rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+
+            .xenmind-icon {
+                width: 120px;
+                height: 120px;
+                font-size: 4rem;
+            }
+
+            .logo img {
+                height: 36px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .notify-form {
+                padding: 30px 20px;
+                margin: 40px auto 0;
+            }
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        /* Features Preview */
+        .features-preview {
+            background: rgba(17, 24, 39, 0.6);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transform: translateZ(8px);
+        }
+
+        .feature-item {
+            font-size: 1.125rem;
+            color: #e4e4e7;
+            margin-bottom: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(75, 85, 99, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .feature-item:hover {
+            color: #8b5cf6;
+            transform: translateX(10px);
+        }
+
+        .xenmind-tagline {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #8b5cf6;
+            margin: 30px 0;
+            transform: translateZ(12px);
+        }
+
+        .future-message {
+            font-size: 1.125rem;
+            color: #d1d5db;
+            font-style: italic;
+            margin-bottom: 40px;
+            transform: translateZ(10px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Animated Background -->
+    <div class="animated-bg"></div>
+
+    <!-- Enhanced Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- 3D Floating Shapes -->
+    <div class="floating-shapes" id="shapes"></div>
+
+    <!-- Floating Mini Stars -->
+    <div class="floating-stars" id="stars"></div>
+
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">
+                <img src="C:\Users\dell\Desktop\Apps\XENORA\XENORA-WHITE2.png" alt="Xenora">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="course-details.html">Xenora Learning</a></li>
+                <li><a href="xenpro.html">XenPro</a></li>
+                <li><a href="xenmind.html">XenMind</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Coming Soon Section -->
+    <section class="coming-soon">
+        <div class="container">
+            <div class="coming-soon-content">
+                <div class="xenmind-icon">🚀</div>
+                
+                <div class="coming-soon-badge">Coming Soon</div>
+                
+                <h1>XenMind</h1>
+                
+                <p class="coming-soon-subtitle">
+                    Learning Gets Smarter
+                </p>
+                
+                <p class="coming-soon-description">
+                    A new era of personalized learning is on the horizon.<br><br>
+                    Imagine an AI companion that doesn't just help you study — it understands how you learn.
+                </p>
+
+                <!-- Features List -->
+                <div class="features-preview">
+                    <div class="feature-item">📚 Upload your materials.</div>
+                    <div class="feature-item">🧠 Let AI create your study plan.</div>
+                    <div class="feature-item">❓ Build question papers in seconds.</div>
+                    <div class="feature-item">💬 Chat with your own intelligent learning assistant.</div>
+                </div>
+
+                <p class="xenmind-tagline">
+                    XenMind is more than just a study tool. It's your personal AI tutor.
+                </p>
+
+                <p class="future-message">
+                    Stay tuned — the future of education is being written.
+                </p>
+
+                <!-- Notification Form -->
+                <div class="notify-form">
+                    <h3>👉 Join the waitlist and be the first to experience it.</h3>
+                    <p>Be the first to experience XenMind when it becomes available. We'll send you an exclusive early access invitation!</p>
+                    
+                    <form action="#" method="POST">
+                        <input type="email" class="email-input" placeholder="Enter your email address" required>
+                        <button type="submit" class="notify-btn">Notify Me</button>
+                    </form>
+                </div>
+
+                <!-- Back to Home -->
+                <div class="back-home">
+                    <a href="index.html" class="btn-secondary">← Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="course-details.html">Xenora Learning</a>
+                <a href="xenpro.html">XenPro</a>
+                <a href="xenmind.html">XenMind</a>
+            </div>
+            
+            <p style="color: #9ca3af; margin-bottom: 16px;">xenoralearning@gmail.com</p>
+            
+            <p style="margin-top: 16px; color: #4b5563; font-size: 12px;">
+                © 2024 Xenora. A student-led educational initiative.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced particle creation with 3D effects
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 80;
+            const particleTypes = ['small', 'medium', 'large', 'glow', 'mini-star', 'twinkle-star'];
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
+                particle.className = `particle ${type}`;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Create floating geometric shapes
+        function createFloatingShapes() {
+            const shapesContainer = document.getElementById('shapes');
+            const shapeCount = 20;
+            const shapeTypes = ['triangle', 'square', 'circle'];
+            
+            for (let i = 0; i < shapeCount; i++) {
+                const shape = document.createElement('div');
+                const type = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
+                shape.className = `shape ${type}`;
+                shape.style.left = Math.random() * 100 + '%';
+                shape.style.top = Math.random() * 100 + '%';
+                shape.style.animationDelay = Math.random() * 20 + 's';
+                shape.style.animationDuration = (Math.random() * 15 + 20) + 's';
+                shapesContainer.appendChild(shape);
+            }
+        }
+
+        // Create floating mini stars
+        function createFloatingStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 50;
+            const starSymbols = ['✦', '✧', '⋆', '✩', '✪', '✫', '⭐'];
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                const symbol = starSymbols[Math.floor(Math.random() * starSymbols.length)];
+                const isBright = Math.random() > 0.7;
+                
+                star.className = `mini-star ${isBright ? 'bright' : ''}`;
+                star.innerHTML = symbol;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 30 + 's';
+                star.style.animationDuration = (Math.random() * 20 + 25) + 's';
+                
+                const size = Math.random() * 0.5 + 0.5;
+                star.style.transform = `scale(${size})`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Enhanced header scroll effect with 3D
+        function setupHeaderScroll() {
+            const header = document.querySelector('header');
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                
+                if (currentScrollY > 50) {
+                    header.style.background = 'rgba(10, 10, 15, 0.98)';
+                    header.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.4)';
+                    header.style.transform = 'translateZ(10px)';
+                } else {
+                    header.style.background = 'rgba(10, 10, 15, 0.95)';
+                    header.style.boxShadow = 'none';
+                    header.style.transform = 'translateZ(0px)';
+                }
+            });
+        }
+
+        // Form submission handler
+        function setupFormHandler() {
+            const form = document.querySelector('.notify-form form');
+            const button = document.querySelector('.notify-btn');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Change button text temporarily
+                const originalText = button.textContent;
+                button.textContent = 'Thank You! 🎉';
+                button.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, #8b5cf6, #a855f7)';
+                    form.reset();
+                }, 3000);
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            createFloatingShapes();
+            createFloatingStars();
+            setupHeaderScroll();
+            setupFormHandler();
+        });
+    </script>
+</body>
+</html>
